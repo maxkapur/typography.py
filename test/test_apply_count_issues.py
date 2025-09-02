@@ -24,6 +24,7 @@ import typography
         ("Range: 25-28", "Range: 25–28", 1),
         ("2025-01-01", "2025-01-01", 0),
         ('Time for "curly quotes"', "Time for “curly quotes”", 2),
+        ("Ellipsis ...", "Ellipsis …", 1),
         ("Trailing whitespace    ", "Trailing whitespace", 1),
         ("Trailing whitespace    \n\n", "Trailing whitespace\n\n", 1),
         ("Trailing \n  whitespace\t\n", "Trailing\n  whitespace\n", 2),
@@ -39,7 +40,7 @@ addressing his mother.
 I, having become lusty, wandered about
 in the midst of omens.
 And there came out stars in the heavens,
-Like a … of heaven he fell upon me.
+Like a ... of heaven he fell upon me.
 I bore him but he was too heavy for me.
 He bore a net but I was not able to bear it.
 I summoned the land to assemble unto him,
@@ -68,7 +69,7 @@ I lifted him and carried him away unto thee.”
 The mother of Gilgamish she that knows all things,
 said unto Gilgamish—
 """,
-            4,
+            5,
         ),
     ],
 )

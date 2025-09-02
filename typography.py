@@ -58,6 +58,8 @@ PUNCTUATION = [
     (r"\"\b", r"“"),
     # Non-curly closing quote
     (r"(\b[\.\?,!]?)(\")", r"\1”"),
+    # Ellipsis
+    (r"\.\.\.", r"…"),
     # Trailing whitespace
     (r"([^ \t]*)([ \t]+)(\n|$)", r"\1\3"),
 ]
