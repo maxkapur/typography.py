@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 """Identify ASCII typography that could be better rendered as Unicode."""
 
+import argparse
 import difflib
 import re
 import sys
+from io import TextIOWrapper
 from pathlib import Path
 
 DIFFER = difflib.Differ()
@@ -69,22 +71,35 @@ def apply_count_issues(contents: str) -> tuple[str, int]:
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("infiles", nargs="*", help="Input file(s)")
+    options = parser.parse_args()
+
     # True if *any* input file had an issue
     issue_found = False
 
     # Collect input files and fail early if any don't exist
     infiles = []
-    for maybe_file in sys.argv[1:]:
+    for maybe_file in options.infiles:
         infile = Path(maybe_file)
         if not infile.is_file():
             raise FileNotFoundError(maybe_file)
         infiles.append(infile)
 
-    for infile in infiles:
-        print(f"{infile}: ", end="")
+    # Use stdin if no infiles provided
+    infiles = infiles or [sys.stdin]
 
-        with open(infile, "r") as f:
-            before = f.read()
+    for infile in infiles:
+        match infile:
+            case Path() as inpath:
+                print(f"{infile}: ", end="")
+                with open(inpath, "r") as f:
+                    before = f.read()
+            case TextIOWrapper() as intext:
+                print(f"{intext.name}: ", end="")
+                before = intext.read()
+            case _:
+                raise TypeError(infile)
 
         after, issue_count = apply_count_issues(before)
 
