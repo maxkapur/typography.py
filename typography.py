@@ -59,7 +59,7 @@ PUNCTUATION = [
     # Non-curly closing quote
     (r"(\b[\.\?,!]?)(\")", r"\1”"),
     # Trailing whitespace
-    (r"(.*)([ \t]+)($)", r"\1\3"),
+    (r"([^ \t]*)([ \t]+)(\n|$)", r"\1\3"),
 ]
 RULES.extend(map(compile, PUNCTUATION))
 

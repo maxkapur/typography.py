@@ -24,7 +24,9 @@ import typography
         ("Range: 25-28", "Range: 25–28", 1),
         ("2025-01-01", "2025-01-01", 0),
         ('Time for "curly quotes"', "Time for “curly quotes”", 2),
-        ("Trailing whitespace    \n", "Trailing whitespace\n", 1),
+        ("Trailing whitespace    ", "Trailing whitespace", 1),
+        ("Trailing whitespace    \n\n", "Trailing whitespace\n\n", 1),
+        ("Trailing \n  whitespace\t\n", "Trailing\n  whitespace\n", 2),
         # Multiple issues
         # Long example
     ],
