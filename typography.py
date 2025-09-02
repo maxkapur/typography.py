@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Identify ASCII typography that could be better rendered as unicode."""
+"""Identify ASCII typography that could be better rendered as Unicode."""
 
 import re
 import subprocess

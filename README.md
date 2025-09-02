@@ -1,6 +1,6 @@
 # typography.py
 
-Identify ASCII typography that could be better rendered as unicode. For example,
+Identify ASCII typography that could be better rendered as Unicode. For example,
 `this right here---could be better rendered` as an em dash `—`.
 
 This is *not* a spell checker or prose linter; I use it in addition to
