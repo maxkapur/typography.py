@@ -63,7 +63,20 @@ PUNCTUATION = [
 ]
 RULES.extend(map(compile, PUNCTUATION))
 
-if __name__ == "__main__":
+
+def apply_count_issues(contents: str) -> tuple[str, int]:
+    """Apply all rules to the string.
+
+    Return the updated string and a count of how many issues were found.
+    """
+    issue_count = 0
+    for expr, sub in RULES:
+        contents, nsubs = re.subn(expr, sub, contents)
+        issue_count += nsubs
+    return contents, issue_count
+
+
+def main():
     # True if *any* input file had an issue
     issue_found = False
 
@@ -76,18 +89,12 @@ if __name__ == "__main__":
         infiles.append(infile)
 
     for infile in infiles:
-        # Track number of issues in *this* input file
-        issue_count = 0
-
-        infile = Path(infile)
-        print(f"{str(infile)}: ", end="")
+        print(f"{infile}: ", end="")
 
         with open(infile, "r") as f:
             contents = f.read()
 
-        for expr, sub in RULES:
-            contents, nsubs = re.subn(expr, sub, contents)
-            issue_count += nsubs
+        contents, issue_count = apply_count_issues(contents)
 
         if issue_count == 0:
             print("no issues")
@@ -103,3 +110,7 @@ if __name__ == "__main__":
         issue_found = issue_found or issue_count >= 1
 
     exit(int(issue_found))
+
+
+if __name__ == "__main__":
+    main()
