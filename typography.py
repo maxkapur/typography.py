@@ -50,7 +50,7 @@ RULES.extend(map(compile, SPELLING))
 
 PUNCTUATION = [
     # Two or three consecutive hyphens should be em dash
-    (r"\b\-\-\-?\b", r"—"),
+    (r"\b\-\-\-?(\b|\n)", r"—\1"),
     # Numeric range should have en dash. Multiple en dashes are a false positive
     # (probably a date like 2024-12-26).
     (r"(?<![\d\-])(\d+)(\-)(\d+)(?![\-\d])", r"\1–\3"),
