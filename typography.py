@@ -1,22 +1,12 @@
 #!/usr/bin/env python
 """Identify ASCII typography that could be better rendered as Unicode."""
 
+import difflib
 import re
-import subprocess
 import sys
 from pathlib import Path
 
-# Used to show substitutions
-DIFF_CMD = (
-    "git",
-    "--no-pager",
-    "diff",
-    "--no-index",
-    "--color=always",
-    "--word-diff",
-    "--",
-)
-
+DIFFER = difflib.Differ()
 
 # Rules to apply: a list of (regular expression, replacement) tuples
 RULES: list[tuple[re.Pattern, str]] = []
@@ -94,9 +84,9 @@ def main():
         print(f"{infile}: ", end="")
 
         with open(infile, "r") as f:
-            contents = f.read()
+            before = f.read()
 
-        contents, issue_count = apply_count_issues(contents)
+        after, issue_count = apply_count_issues(before)
 
         if issue_count == 0:
             print("no issues")
@@ -106,8 +96,8 @@ def main():
         else:
             print(f"{issue_count} issues found")
 
-        cmd = (*DIFF_CMD, str(infile), "-")
-        subprocess.run(cmd, input=contents, text=True)
+        cmp = DIFFER.compare(before.splitlines(True), after.splitlines(True))
+        sys.stdout.writelines(cmp)
 
         issue_found = issue_found or issue_count >= 1
 
