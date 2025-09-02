@@ -28,7 +28,48 @@ import typography
         ("Trailing whitespace    \n\n", "Trailing whitespace\n\n", 1),
         ("Trailing \n  whitespace\t\n", "Trailing\n  whitespace\n", 2),
         # Multiple issues
+        ("Could've been  \nin Hawaii", "Could’ve been\nin Hawaiʻi", 3),
         # Long example
+        # https://en.wikisource.org/wiki/The_Epic_of_Gilgamish/Translation_and_Transliteration
+        (
+            """\
+Gilgamish arose interpreting dreams,      
+addressing his mother.
+"My mother! during my night
+I, having become lusty, wandered about
+in the midst of omens.
+And there came out stars in the heavens,
+Like a … of heaven he fell upon me.
+I bore him but he was too heavy for me.
+He bore a net but I was not able to bear it.
+I summoned the land to assemble unto him,
+that heroes might kiss his feet.
+He stood up before me
+and they stood over against me.
+I lifted him and carried him away unto thee."
+The mother of Gilgamish she that knows all things,
+said unto Gilgamish---
+""",
+            """\
+Gilgamish arose interpreting dreams,
+addressing his mother.
+“My mother! during my night
+I, having become lusty, wandered about
+in the midst of omens.
+And there came out stars in the heavens,
+Like a … of heaven he fell upon me.
+I bore him but he was too heavy for me.
+He bore a net but I was not able to bear it.
+I summoned the land to assemble unto him,
+that heroes might kiss his feet.
+He stood up before me
+and they stood over against me.
+I lifted him and carried him away unto thee.”
+The mother of Gilgamish she that knows all things,
+said unto Gilgamish—
+""",
+            4,
+        ),
     ],
 )
 def test_apply_count_issues(before: str, after: str, count: int) -> None:
