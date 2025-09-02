@@ -96,8 +96,14 @@ def main():
         else:
             print(f"{issue_count} issues found")
 
-        cmp = DIFFER.compare(before.splitlines(True), after.splitlines(True))
-        sys.stdout.writelines(cmp)
+        # https://www.timsanteford.com/posts/creating-a-git-like-diff-viewer-in-python-using-difflib/
+        for line in DIFFER.compare(before.splitlines(), after.splitlines()):
+            if line.startswith("-"):
+                print(f"\033[31m{line}\033[0m")  # red for removals
+            elif line.startswith("+"):
+                print(f"\033[32m{line}\033[0m")  # green for additions
+            else:
+                print(line)
 
         issue_found = issue_found or issue_count >= 1
 
