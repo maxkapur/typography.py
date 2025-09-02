@@ -2,9 +2,9 @@
 """Identify ASCII typography that could be better rendered as unicode."""
 
 import re
+import subprocess
 import sys
 from pathlib import Path
-import subprocess
 
 # Used to show substitutions
 DIFF_CMD = (
@@ -19,7 +19,7 @@ DIFF_CMD = (
 
 
 # Rules to apply: a list of (regular expression, replacement) tuples
-RULES = []
+RULES: list[tuple[re.Pattern, str]] = []
 
 
 def compile(expr_sub):
