@@ -18,9 +18,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # You can test your matrix by printing the current Python version
       - name: Install module
         run: pip install --editable .[dev]
 
       - name: Run tests
         run: pytest
+
+      - name: Test CLI
+        run: |
+          echo "stdin with … no issues!" | typography
+          echo "file that hasn’t got any issues!" > ./a.txt
+          echo "not this one—not today!" > ./b.txt
+          typography ./a.txt ./b.txt
