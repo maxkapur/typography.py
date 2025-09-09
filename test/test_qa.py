@@ -4,7 +4,7 @@ from pathlib import Path
 
 import mypy.api
 
-REPO_ROOT = Path(".").parent.parent
+REPO_ROOT = Path(__file__).parent.parent
 
 
 def test_mypy():
