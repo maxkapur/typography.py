@@ -12,7 +12,7 @@ prone to false positives.
 ## Installation
 
 ```shell
-pipx install 'https://github.com/maxkapur/typography.py/archive/refs/heads/main.tar.gz'
+pipx install 'git+https://github.com/maxkapur/typography.py'
 ```
 
 ## Usage
