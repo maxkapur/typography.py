@@ -93,8 +93,7 @@ def main():
         match infile:
             case Path() as inpath:
                 print(f"{infile}: ", end="")
-                with open(inpath, "r") as f:
-                    before = f.read()
+                before = inpath.read_text()
             case TextIOWrapper() as intext:
                 print(f"{intext.name}: ", end="")
                 before = intext.read()
